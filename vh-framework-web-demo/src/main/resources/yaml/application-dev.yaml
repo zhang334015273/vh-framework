@@ -1,0 +1,61 @@
+#server setting
+server:
+  port: 80
+  context-path: /vh-web #根目录
+
+#spring setting
+spring:
+  mail:
+    host: smtp.163.com
+    username: a944149619@163.com
+    password: a944149619
+    default-encoding: UTF-8 
+    smtp:
+      auth: true                    
+      starttls:
+        enable: true
+        required: true 
+     
+
+      
+#viewhigh framework setting
+viewhigh:
+  httpclient:
+    connectTimeout: 6000
+    connectRequestTimeout: 12000
+    redirectEnabled: true
+    
+#druid jdbc setting
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.252.211:3306/saas?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    maxActive: 400
+    initialSize: 5
+    maxWait: 60000
+    minIdle: 100
+    
+  rabbitmq:
+     host:  192.168.252.210 
+     port:  5673
+     username:  bailh
+     password:  bailh
+     virtual-host: saas
+     
+     
+     
+  redis:
+    nodes: 192.168.252.211:7000,192.168.252.212:7000,192.168.252.213:7000,192.168.252.211:7001,192.168.252.212:7001,192.168.252.213:7001,192.168.252.211:7002,192.168.252.212:7002,192.168.252.213:7002,192.168.252.211:7003,192.168.252.212:7003,192.168.252.213:7003
+    maxRedirects: 6
+#    host: 192.168.252.211
+#    port: 6379
+    password: redis
+    dbIndex: 1
+    maxIdle: 20
+    minIdle: 10
+    maxActive: 50
+    maxWait: -1
+    testOnBorrow: true
+    timeout: 100000

@@ -1,0 +1,127 @@
+<?xml version="1.0" ?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.viewhigh</groupId>
+		<artifactId>vh-framework</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>vh-framework-web-demo</artifactId>
+	<packaging>jar</packaging>
+	<name>vh-framework-web-demo</name>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.viewhigh</groupId>
+			<artifactId>vh-framework-httpclient</artifactId>
+			<version>${viewhigh.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.viewhigh</groupId>
+			<artifactId>vh-framework-common-sms</artifactId>
+			<version>${viewhigh.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.viewhigh</groupId>
+			<artifactId>vh-framework-common-email</artifactId>
+			<version>${viewhigh.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.viewhigh</groupId>
+			<artifactId>vh-framework-jpa</artifactId>
+			<version>${viewhigh.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.viewhigh</groupId>
+			<artifactId>vh-framework-rabbit</artifactId>
+			<version>${viewhigh.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.viewhigh</groupId>
+			<artifactId>vh-framework-redis</artifactId>
+			<version>${viewhigh.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+	</dependencies>
+	
+	<!-- 环境配置 -->
+	<profiles>
+		<!-- 开发环境 (设置为默认) -->
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active> 
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<!-- 测试环境 -->
+		<profile>
+			<id>test</id>
+			<properties>
+				<profiles.active>test</profiles.active> 
+			</properties>
+		</profile>
+		<!-- 生产环境 -->
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profiles.active>prod</profiles.active> 
+			</properties>
+		</profile>
+		<!-- 生产集群环境 (若有需要) -->
+		<profile>
+			<id>master</id>
+			<properties>
+				<profiles.active>master</profiles.active> 
+			</properties>
+		</profile>
+	</profiles>
+	
+	<!-- 打包配置 -->
+	<build>
+		<finalName>vh-web-demo</finalName>
+		<resources>
+			<resource>
+				<!-- 主资源配置文件路径 -->
+				<directory>src/main/resources/yaml</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<!-- 副资源配置文件路径 -->
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>yaml/*</exclude>
+				</excludes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- main 方法入口 -->
+					<mainClass>com.viewhigh.framework.web.app.WebApp</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<!--创建一个自动可执行的jar或war文件 -->  
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+  
+</project>

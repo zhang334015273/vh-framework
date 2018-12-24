@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.viewhigh</groupId>
+	<artifactId>vh-framework</artifactId>
+	<version>${viewhigh.version}</version>
+	<packaging>pom</packaging>
+	<name>vh开发模板</name>
+	<organization>
+		<name>北京东软望海科技股份有限公司</name>
+		<url>http://www.viewhigh.com</url>
+	</organization>
+	
+	<!-- 上传jar到私服 -->
+	<distributionManagement>
+		<repository>
+			<id>maven-releases</id>
+			<name>releases</name>
+			<url>http://192.168.252.210:8081/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>maven-snapshots</id>
+			<name>Snapshots</name>
+			<url>http://192.168.252.210:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+  
+	<properties>
+		<spring-boot.version>1.5.13.RELEASE</spring-boot.version>
+		<junit.version>3.8.1</junit.version>
+		
+		<!-- json转换器 -->
+		<fastjson.version>1.2.47</fastjson.version>
+		
+		<!-- 跳过test打包 -->
+		<maven.test.skip>true</maven.test.skip>
+		<!-- 项目编码 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- 项目版本 与 version一样 -->
+		<viewhigh.version>1.0.0-SNAPSHOT</viewhigh.version>
+	</properties>
+  
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+			</plugin>
+			
+			<!-- 编译源代码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            
+            <!-- 打包源代码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+			
+		</plugins>
+	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-dependencies</artifactId>
+			<version>${spring-boot.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-parent</artifactId>
+			<version>${spring-boot.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		
+		
+		<!-- fastjson -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>${fastjson.version}</version>
+		</dependency>
+		
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+  
+	<modules>
+	    <module>vh-framework-web-demo</module>
+	    <module>vh-framework-httpclient</module>
+		<module>vh-framework-common</module>
+	    <module>vh-framework-jpa</module>
+	    <module>vh-framework-rabbit</module>
+    	<module>vh-framework-redis</module>
+    </modules>
+</project>
